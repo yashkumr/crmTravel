@@ -1,0 +1,41 @@
+.hide1{
+    /* z-index: 1000;
+    position: "absolute";
+    top: "0";
+    right: "0"; */
+    width: "100%";
+    border: 0px;
+    background: transparent;
+}
+.hide1>svg{
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+    color: black;
+}
+.show1{
+    /* z-index: 1000;
+    position: "absolute";
+    top: "0";
+    left: "0";
+    z-index: 9999999; */
+    border: 0px;
+    background: transparent;
+   
+}
+.show1>svg{
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+    color: black;
+}
+.dropdown-user>a{
+    font-size: 17px;
+    float: right;
+    font-weight: 500;
+    line-height: .5px;
+    margin: 5px 5px 2px 2px;
+    padding: 5px 6px 2px 2px;
+    letter-spacing: .5px;
+
+}
