@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Layout from '../../components/Layout/Layout.jsx';
 import { useAuth } from '../../context/Auth.jsx';
 
 const Login = () => {
-  const {auth, setAuth,isAuthenticated} = useAuth();
+  const { auth, setAuth } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-  });
+    otp: ''
+ });
+  const [otpSent, setOtpSent] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -21,36 +23,69 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
+    
     e.preventDefault();
     try {
-      const res = await axios.post('/api/v1/auth/login', formData);
-      if (res && res.data.success) {
-        toast.success(res.data.message);
-        setAuth({
-          ...auth,
-          user: res.data.user,
-          token: res.data.token,
-        });
-        localStorage.setItem('auth', JSON.stringify(res.data));
-        // isAuthenticated(true);
-        navigate('/');
+      if (!otpSent) {
+
+        const res = await axios.post('/api/v1/auth/send-otp', { email: formData.email, password: formData.password });
+
+        if (res && res.data.success) {
+
+          toast.success(res.data.message);
+          setOtpSent(true);
+        } else {
+
+          toast.error(res.data.message); // Use toast.error for error messages
+        }
       } else {
-        toast.error(res.data.message);
+
+        const res = await axios.post('/api/v1/auth/login', formData);
+        if (res && res.data.success) {
+          toast.success(res.data.message);
+          setAuth({
+            ...auth,
+            user: res.data.user,
+            token: res.data.token,
+          });
+          localStorage.setItem('auth', JSON.stringify(res.data));
+          navigate('/');
+        } else {
+         
+          toast.error(res.data.message);
+        }
       }
     } catch (error) {
       console.log(error);
-      toast.error('Failed to login');
+      toast.error('An error occurred. Please try again2.');
     }
   };
 
   return (
-    <Layout>
-      <div className="container login-page mt-2">
-        <div className="row mt-5">
-          <div className="col-md-12">
-            <form onSubmit={handleSubmit} className="login-form container row g-3 p-3">
-              <h4 className="">LOGIN FORM</h4>
+
+    <div className="container login-page mt-2">
+      <div className="row mt-5">
+        <div className="col-md-12">
+          <form onSubmit={handleLogin} className="login-form container row g-3 p-3">
+
+            {otpSent ? (
+              <div className="col-12">
+                <label htmlFor="inputOtp" className="form-label">
+                  OTP<strong>*</strong>
+                </label>
+                <input
+                  type="text"
+                  name="otp"
+                  value={formData.otp}
+                  onChange={handleInputChange}
+                  className="form-control shadow-none"
+                  id="inputOtp"
+                />
+              </div>
+            ) : <>
+
+              <h4>LOGIN FORM</h4>
               <div className="col-md-12">
                 <label htmlFor="inputEmail4" className="form-label">
                   EMAIL <strong>*</strong>
@@ -65,7 +100,7 @@ const Login = () => {
                 />
               </div>
               <div className="col-12">
-                <label htmlFor="inputpassword" className="form-label shadow-none">
+                <label htmlFor="inputpassword" className="form-label">
                   PASSWORD<strong>*</strong>
                 </label>
                 <input
@@ -77,16 +112,25 @@ const Login = () => {
                   id="inputpassword"
                 />
               </div>
-              <div className="col-6 registr-back">
-                <button type="submit" className="rounded-0 btn btn-primary">
-                  Login
-                </button>
-              </div>
-            </form>
-          </div>
+
+
+            </>}
+
+            <div className="col-12">
+              <button type="submit" className="rounded-0 btn btn-primary">
+                {otpSent ? 'Verify ' : 'login'}
+              </button>
+
+              <div className='d-flex'>  <span className='text-dark p-1'>Have't an Account</span> <NavLink to="/zts-register" className="p-1"> Register</NavLink> </div>
+
+
+            </div>
+
+          </form>
         </div>
       </div>
-    </Layout>
+    </div>
+
   );
 };
 

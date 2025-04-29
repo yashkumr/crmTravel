@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "../../context/Auth.jsx";
@@ -74,8 +74,8 @@ const Register = () => {
               </div>
 
               <div className="col-md-12">
-               <span className='text-dark'>Email</span>
-               
+                <span className='text-dark'>Email</span>
+
                 <input
                   type="email"
                   name="email"
@@ -98,35 +98,31 @@ const Register = () => {
                 />
               </div>
               <div className="col-12">
-                <label htmlFor="inputpassword" className="form-label text-dark ">
+                <label htmlFor="inputRole" className="form-label text-dark">
                   Role<strong>*</strong>
                 </label>
-                <input
-                  type="text"
+                <select
                   name="role"
                   value={formData.role}
                   onChange={handleChange}
-                  className="form-control shadow-none"
-                />
+                  className="form-select shadow-none"
+                  id="inputRole"
+                >
+                  <option value="agent">Agent</option>
+                  <option value="admin">Admin</option>
+                  <option value="superadmin">Superadmin</option>
+                  <option value="user">User</option>
+                </select>
               </div>
 
-              <div className="col-12">
-                <div className="form-check">
-                  <input
-                    className="form-check-input shadow-none rounded-0"
-                    type="checkbox"
-                    id="gridCheck"
-                    required
-                  />
-                  <label className="form-check-label text-dark " htmlFor="gridCheck">
-                    Check me out
-                  </label>
-                </div>
-              </div>
+
               <div className="col-6 registr-back">
                 <button type="submit" className=" rounded-0 btn btn-primary">
                   Create Account
                 </button>
+
+                <div className='d-flex'>  <span className='text-dark p-1'>Have an Account</span> <NavLink to="/zts-login" className="p-1"> Login</NavLink> </div>
+
               </div>
             </form>
           </section>

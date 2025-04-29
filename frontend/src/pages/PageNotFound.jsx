@@ -1,22 +1,28 @@
 import React from 'react'
-import Layout from '../components/Layout/Layout.jsx'
-import SideBar from '../components/SideBar.jsx'
 
 const PageNotFound = () => {
   return (
     <>
-    <Layout>
-      <div className="d-flex ">
-        <SideBar />
-
-        {/* Main Content */}
-        <div className="flex-grow-1 p-4" >
-          <h2 className='text-center'>page not found</h2>
-        </div>
+ <div id="error-page">
+         <div class="content">
+            <h2 class="header" data-text="404">
+               404
+            </h2>
+            <h4 data-text="Opps! Page not found">
+               Opps! Page not found
+            </h4>
+            <p>
+               Sorry, the page you're looking for doesn't exist. If you think something is broken, report a problem.
+            </p>
+            <div class="btns">
+               <a href="/">return home</a>
+               <a href="/">Tap T Exit</a>
+            </div>
+         </div>
       </div>
 
-    </Layout>
-  </>
+
+    </>
   )
 }
 

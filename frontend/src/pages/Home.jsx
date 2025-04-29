@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  } from 'react'
 import Layout from '../components/Layout/Layout.jsx'
 import { RxHamburgerMenu } from "react-icons/rx";
 import SideBar from '../components/SideBar.jsx';
@@ -15,44 +15,6 @@ const Home = () => {
       <div className="d-flex ">
         <SideBar />
 
-        {/* <div className='d-flex flex-column'>
-          
-          <button
-            className={` ${isSidebarVisible ? "hide1" : "show1"}`}
-            onClick={toggleSidebar}
-          >
-            <RxHamburgerMenu />
-          </button>
-        
-          {isSidebarVisible && (
-            <div className="bg-light p-3" style={{ position: "relative", width: "250px", minHeight: "100vh" }}>
-    
-
-              <ul className="list-unstyled">
-                <li className="mb-3">
-                  <a href="#admins" className="text-decoration-none text-dark">
-                    Admins
-                  </a>
-                </li>
-                <li className="mb-3">
-                  <a href="#users" className="text-decoration-none text-dark">
-                    Users
-                  </a>
-                </li>
-                <li className="mb-3">
-                  <a href="#agents" className="text-decoration-none text-dark">
-                    Agents
-                  </a>
-                </li>
-                <li className="mb-3">
-                  <a href="#brokers" className="text-decoration-none text-dark">
-                    Brokers
-                  </a>
-                </li>
-              </ul>
-            </div>
-          )}
-        </div> */}
 
         {/* Main Content */}
         <div className="flex-grow-1 p-4" >
@@ -71,7 +33,7 @@ const Home = () => {
                 aria-controls="comparison1"
                 aria-selected="true"
               >
-                Comparison 1
+                Last 15 Days Flight Deals
               </button>
               <button
                 className="nav-link"
@@ -83,7 +45,7 @@ const Home = () => {
                 aria-controls="comparison2"
                 aria-selected="false"
               >
-                Comparison 2
+                Last 15 Days Hotel Deals
               </button>
               <button
                 className="nav-link"
@@ -95,7 +57,7 @@ const Home = () => {
                 aria-controls="comparison3"
                 aria-selected="false"
               >
-                Comparison 3
+                Last 15 Days closed Deals
               </button>
             </div>
             <div className="tab-content" id="comparison-tabs-content">
@@ -105,10 +67,21 @@ const Home = () => {
                 role="tabpanel"
                 aria-labelledby="comparison1-tab"
               >
-                <div className="mt-3">
-                  <h5>Comparison 1</h5>
-                  <p>Details about comparison 1 go here...</p>
+                <div className="mt-3 d-flex gap-3 justify-content-between border p-3 rounded">
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>Flights</h5>
+                    <p>100 Flights Deals Generate </p>
+                  </div>
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>closed Deals</h5>
+                    <p>45 Flights Deals Generate </p>
+                  </div>
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>Remaining Deals</h5>
+                    <p>55 Flights Deals Generate </p>
+                  </div>
                 </div>
+
               </div>
               <div
                 className="tab-pane fade"
@@ -116,9 +89,19 @@ const Home = () => {
                 role="tabpanel"
                 aria-labelledby="comparison2-tab"
               >
-                <div className="mt-3">
-                  <h5>Comparison 2</h5>
-                  <p>Details about comparison 2 go here...</p>
+                <div className="mt-3 d-flex gap-3 justify-content-between border p-3 rounded">
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>Hotels</h5>
+                    <p>100 Hotels Deals Generate </p>
+                  </div>
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>closed Deals</h5>
+                    <p>45 Hotels Deals Generate </p>
+                  </div>
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>Remaining Deals</h5>
+                    <p>55 Hotels Deals Generate </p>
+                  </div>
                 </div>
               </div>
               <div
@@ -127,9 +110,19 @@ const Home = () => {
                 role="tabpanel"
                 aria-labelledby="comparison3-tab"
               >
-                <div className="mt-3">
-                  <h5>Comparison 3</h5>
-                  <p>Details about comparison 3 go here...</p>
+                <div className="mt-3 d-flex gap-3 justify-content-between border p-3 rounded">
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>Total Deals</h5>
+                    <p>200  Deals Generate </p>
+                  </div>
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>closed Deals</h5>
+                    <p>95  Deals Generate </p>
+                  </div>
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>Remaining Deals</h5>
+                    <p>105  Deals Generate </p>
+                  </div>
                 </div>
               </div>
             </div>
