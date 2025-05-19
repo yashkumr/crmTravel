@@ -35,7 +35,7 @@ export const HotelDealsProvider = ({ children }) => {
     }, []);
     
     return (
-        <HotelDealsContext.Provider value={{ hotelDeals, loading, errorCode, fetchHotelDeals }}>
+        <HotelDealsContext.Provider value={{ hotelDeals,setHotelDeals, loading, errorCode, fetchHotelDeals }}>
         {children}
         </HotelDealsContext.Provider>
     );

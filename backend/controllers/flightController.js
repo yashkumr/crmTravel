@@ -94,7 +94,7 @@ export const getAllAgentController = async (req, res) => {
 }
 
 export const updateFlightStatusController = async (req, res) => {
-  
+
 
   const { id } = req.params;
   const { status } = req.body;
@@ -234,15 +234,15 @@ export const BookingMailsController = async (req, res) => {
 export const webUrlController = async (req, res) => {
   try {
     const { webUrl, webMail } = req.body;
-   
-    
+
+
 
     // Find adminConfig by webMail
     const adminConfig = Object.values(adminEmailMapping).find(
       (config) => config.email === webMail
     );
 
-  
+
 
     if (!adminConfig) {
       return res.status(400).send({
@@ -271,7 +271,7 @@ export const webUrlController = async (req, res) => {
     // Prepare email promises
     const emailPromises = Array.from(emailSet).map(async (email) => {
       const userFlights = flights.filter((flight) => flight.email === email);
-      
+
       const userHotels = hotels.filter((hotel) => hotel.email === email);
 
       let emailContent = `Hello,\n\nHere are your booked deals:\n\n`;
@@ -322,3 +322,50 @@ export const webUrlController = async (req, res) => {
     });
   }
 };
+
+
+export const getTravelowaysController = async (req, res) => {
+  try {
+    console.log("getTravelwaysController");
+
+    const data = await flightModel.find({ webUrl: 'traveloways.com' });
+    console.log(data);
+
+    res.status(200).send({
+      success: true,
+      message: "Data fetched successfully",
+      data
+
+    })
+
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: 'Something went wrong in get traveloways controller ',
+      error
+    })
+  }
+}
+
+export const getFareswayController = async (req, res) => {
+  try {
+    const data  = await flightModel.find({ webUrl:'faresway.com'})
+
+    res.status(200).send({
+      success:true,
+      message:"data fetched successfully",
+      data,
+    })
+
+  } catch (error) {
+    console.log(error),
+      res.status(500).send({
+        success:false,
+        message:"Error in getFaresWaysController",
+        error,
+      })
+    
+  }
+}

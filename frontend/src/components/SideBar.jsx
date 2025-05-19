@@ -10,7 +10,7 @@ const socket = io("http://localhost:8000/");
 
 const SideBar = () => {
     const { flightDeals, setFlightDeals } = useFlightDeals();
-    const { hotelDeals } = useHotelDeals();
+    const { hotelDeals, setHotelDeals } = useHotelDeals();
     const initialPendingCount = flightDeals.filter((deal) => deal.status === "newBooking").length;
     const [pendingBookings, setPendingBookings] = useState(initialPendingCount);
     const [bookingMails, setBookingMails] = useState([]);
@@ -85,12 +85,39 @@ const SideBar = () => {
             }
         };
 
+        const handleNewHotelAdded = (data) => {
+            if (data?.success) {
+
+                setHotelDeals((prevDeals) => {
+                    const updatedDeals = [data.data, ...prevDeals];
+                    return updatedDeals;
+                });
+
+
+            }
+        }
+
         socket.on("newFlightAdded", handleNewFlightAdded);
+        socket.on("newHotelAdded", handleNewHotelAdded);
 
         return () => {
             socket.off("newFlightAdded", handleNewFlightAdded);
         };
-    }, [socket, setFlightDeals]);
+    }, [socket, setFlightDeals, setHotelDeals]);
+
+    const newFaresWayBookings = flightDeals.filter(
+        (deal) => deal.status === "newBooking" && deal.webUrl === "faresway.com"
+    ).length;
+
+    const newTravelowaysBooking = flightDeals.filter(
+        (deal) => deal.status === "newBooking" && deal.webUrl === "traveloways.com"
+    ).length;
+
+    const newBusinessBookings = flightDeals.filter(
+        (deal)=> deal.status === "newBooking" && deal.webUrl === "businessclassflyers.com"
+    ).length;
+
+
 
 
 
@@ -104,19 +131,57 @@ const SideBar = () => {
         ];
 
         tabs.push({
-            name: "Business Flyfair",
+            name: (
+                <span>
+                   Business Flyfair
+                    {newBusinessBookings > 0 && (
+                        <span className="badge bg-danger ms-2">{newBusinessBookings}</span>
+                    )}
+                </span>
+            ),
+
             path: "/",
             subTabs: [{ name: "Business Query", path: "/ztsPage/business-query" }, { name: "Booking", path: "/ztsPage/business-booking" }],
         });
 
         tabs.push({
-            name:"Traveloways",
-            path:"/",
-            subTabs:[{ name : "traveloways Booking", path: "/ztsPage/traveloways-booking"}],
+            name: (
+                <span>
+                    Traveloways
+                    {newTravelowaysBooking > 0 && (
+                        <span className="badge bg-danger ms-2">{newTravelowaysBooking}</span>
+                    )}
+                </span>
+            ),
+
+            path: "/",
+            subTabs: [{ name: "Booking", path: "/ztsPage/traveloways-booking" }],
         })
 
+        tabs.push({
+            name: (
+                <span>
+                    FaresWay
+                    {newFaresWayBookings > 0 && (
+                        <span className="badge bg-danger ms-2">{newFaresWayBookings}</span>
+                    )}
+                </span>
+            ),
+            path: "/",
+            subTabs: [{ name: "Booking", path: "/ztsPage/faresway-booking" }],
+        });
+
         // Add bookingMailsTab only if uniqueValues is populated
-        
+        if (uniqueValues.length > 0) {
+            tabs.push({
+                name: "Deal's Mails",
+                path: "/",
+                subTabs: uniqueValues.map((value, index) => ({
+                    name: value.url ? (value.url).replace('.com', '') : `Mail ${index + 1}`,
+                    path: value.url ? `/ztsPage/booking-mails?url=${encodeURIComponent(value.url)}` : "#",
+                })),
+            });
+        }
 
         if (userRoleName === "superadmin") {
             tabs.unshift(
@@ -155,7 +220,7 @@ const SideBar = () => {
         }
 
         return tabs;
-    }, [userRoleName, uniqueValues]);
+    }, [userRoleName, uniqueValues, flightDeals]);
 
 
     // Set the active tab based on the current location
@@ -165,13 +230,15 @@ const SideBar = () => {
         const matchedTab = mainTabs.find((tab) =>
             tab.subTabs.some((sub) => sub.path === currentPath)
         );
-        console.log("matchedTab", matchedTab);
+
+
 
         setActiveTab(matchedTab ? matchedTab.name : "");
 
         if (matchedTab) {
             const matchedSub = matchedTab.subTabs.find((sub) => sub.path === currentPath);
-            console.log("matchedSub", matchedSub);
+
+
             setActiveSubTab(matchedSub ? matchedSub.name : "");
         } else {
             setActiveSubTab("");
@@ -202,7 +269,7 @@ const SideBar = () => {
                         </NavLink>
 
 
-                      
+
                         <ul className="list-unstyled">
                             {mainTabs.map((tab) => (
                                 <li key={tab.name} className="mb-3">

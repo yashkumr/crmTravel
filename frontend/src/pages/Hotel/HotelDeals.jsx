@@ -6,8 +6,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PopHotelDeals from './PopHotelDeals.jsx';
 import axios from "axios";
+import io from "socket.io-client"
 import { useHotelDeals } from "../../context/HotelDealsContext.jsx";
 
+const socket = io("http://localhost:8000/");
 
 
 const HotelDeals = () => {

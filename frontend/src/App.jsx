@@ -36,6 +36,8 @@ import BookingMails from "./pages/Flight/BookingMails.jsx";
 import Car from "./pages/Cars/Car.jsx";
 import BusinessQuery from "./pages/Business/BusinessQuery.jsx";
 import BusinessDelas from "./pages/Business/BusinessDelas.jsx";
+import TravelowaysBooking from "./pages/Traveloways/TravelowaysBooking.jsx";
+import FaresWayBooking from "./pages/FaresWay/FaresWayBooking.jsx";
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -104,6 +106,8 @@ function App() {
 
                 <Route path="business-query" element={<BusinessQuery />} />
                 <Route path="business-booking" element={<BusinessDelas />} />
+                <Route path="traveloways-booking" element={<TravelowaysBooking />} />
+                <Route path="faresway-booking" element={<FaresWayBooking />} />
 
               </Routes>
             </PrivateRoute>
