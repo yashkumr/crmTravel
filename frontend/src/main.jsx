@@ -9,6 +9,8 @@ import { persistor, store } from './redux/store.js'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { FlightDealsProvider } from './context/FlightDealsContext.jsx'
+import { HotelDealsProvider } from './context/HotelDealsContext.jsx'
+
 
 createRoot(document.getElementById('root')).render(
 
@@ -17,13 +19,18 @@ createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <AuthProvider>
+
         <FlightDealsProvider>
-          <BrowserRouter>
-            <StrictMode>
-              <App />
-            </StrictMode>
-          </BrowserRouter>
+          <HotelDealsProvider>
+            <BrowserRouter>
+              <StrictMode>
+                <App />
+              </StrictMode>
+            </BrowserRouter>
+          </HotelDealsProvider>
+
         </FlightDealsProvider>
+
       </AuthProvider>
 
     </PersistGate>

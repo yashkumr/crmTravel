@@ -14,7 +14,8 @@ import authRoutes from './routes/authRoutes.js';
 import otpRoutes from './routes/otpRoutes.js';
 import flightRoutes from './routes/flightRoutes.js';
 import hotelRoutes from './routes/hotelRoutes.js';
-import flightModel from './models/flightModel.js';
+import packageRoutes from './routes/packageRoutes.js';
+import businessRoutes from './routes/businessRoutes.js';
 import mongoose from 'mongoose';
 import setupRealTime from './services/realTime.js';
 
@@ -56,6 +57,8 @@ if (cluster.isPrimary) {
     app.use('/api/v1/otp', otpRoutes);
     app.use('/api/v1/flights', flightRoutes);
     app.use('/api/v1/hotels', hotelRoutes);
+    app.use("/api/v1/package", packageRoutes);
+    app.use("/api/v1/business", businessRoutes);
 
     // Socket.io Event Handling
     io.on('connection', (socket) => {
@@ -67,22 +70,6 @@ if (cluster.isPrimary) {
         });
     });
 
-   
-    // const changeStream = flightModel.watch();
-
-    // changeStream.on('change', (change) => {
-    //     console.log(`Change detected in flights collection: ${JSON.stringify(change)}`.bgBlue.white);
-
-    //     if (change.operationType === 'insert') {
-    //         const newFlight = change.fullDocument;
-            
-    //         io.emit('newFlightAdded', {
-    //             success: true,
-    //             message: 'New flight data added',
-    //             data: newFlight,
-    //         });
-    //     }
-    // });
 
     setupRealTime(io);
 

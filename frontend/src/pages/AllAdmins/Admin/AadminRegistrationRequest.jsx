@@ -44,7 +44,7 @@ const AadminRegistrationRequest = () => {
                     {/* Main Content */}
                     <div className="flex-grow-1 p-4" >
                         <h2 className='text-start'>All Registered  Agents</h2>
-                        <table className="table">
+                        <table className="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>

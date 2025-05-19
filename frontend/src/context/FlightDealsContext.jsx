@@ -16,7 +16,7 @@ export const FlightDealsProvider = ({children}) =>{
     const fetchFlightDeals = async()=>{
 
         try{
-            console.log("Fetching Flight Deals...");
+            
             setLoading(true);
             setErrorCode(null);
             const { data } = await axios.get("/api/v1/flights/get-flight");
@@ -27,7 +27,7 @@ export const FlightDealsProvider = ({children}) =>{
             }
             else{
                 setFlightDeals(data?.data);
-                console.log("Flight Deals", data?.data);     
+                 
             }
             setLoading(false);
 

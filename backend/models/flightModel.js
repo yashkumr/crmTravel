@@ -85,6 +85,12 @@ const flightSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    webUrl: {
+      type: String,
+    },
+    webMail: {
+      type: String,
+    },
     status: {
       type: String,
       enum: ["newBooking", "approved", "rejected"],

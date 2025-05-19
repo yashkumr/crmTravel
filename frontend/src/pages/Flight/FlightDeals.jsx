@@ -20,7 +20,7 @@ const FlightDeals = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [bookingId, setBookingId] = useState("");
-  const [showNotifications, setShowNotifications] = useState(true);
+  const [showNotifications, setShowNotifications] = useState(false);
   const itemsPerPage = 5;
 
   const STATUS_NEW_BOOKING = "newBooking";
@@ -37,7 +37,7 @@ const FlightDeals = () => {
       if (data.success) {
         setFlightDeals((prevDeals) => [data.data, ...prevDeals]);
         setFilteredDeals((prevDeals) => [data.data, ...prevDeals]);
-        toast.success(data.message);
+      
       }
     });
     return () => {
@@ -127,6 +127,8 @@ const FlightDeals = () => {
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
   };
+  //  current.charAt(current.length() - 1) <= vowel.charAt(0))
+  
 
   const totalPages = Math.ceil(filteredDeals.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -188,7 +190,7 @@ const FlightDeals = () => {
           </div>
 
           {/* Notifications */}
-          {showNotifications && (
+         {showNotifications ? (
             <div className="alert alert-info">
               {pendingBookings > 0 ? (
                 <>
@@ -219,7 +221,14 @@ const FlightDeals = () => {
                 {showNotifications ? "Hide" : "Show"} Notifications
               </button>
             </div>
-          )}
+          ) : (
+            <button
+              className="btn btn-link text-dark"
+              onClick={toggleNotifications}
+            >
+              Show Notifications
+            </button>
+          )} 
 
           {/* Filters */}
           <div className="mb-3">
@@ -255,7 +264,7 @@ const FlightDeals = () => {
           </div>
 
           {/* Flight deals table */}
-          <table className="table">
+          <table className="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>#</th>
@@ -276,7 +285,7 @@ const FlightDeals = () => {
                     <td>{deal.email}</td>
                     <td>
                       <button
-                        className="btn btn-primary"
+                        className="btn btn-primary btn-sm text-nowrap"
                         onClick={() => {
                           setFlightDealsPopData(deal);
                           setFlightDealsPop(true);

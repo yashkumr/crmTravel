@@ -31,6 +31,11 @@ import SuperAdminUserDashboard from "./pages/AllAdmins/SuperAdmin/SuperAdminUser
 import SpersonalDashboard from "./pages/AllAdmins/SuperAdmin/SpersonalDashboard.jsx";
 import AadminRegistrationRequest from "./pages/AllAdmins/Admin/AadminRegistrationRequest.jsx";
 import OtpLogin from "./pages/Auth/OtpLogin.jsx";
+import Package from "./pages/packages/Package.jsx";
+import BookingMails from "./pages/Flight/BookingMails.jsx";
+import Car from "./pages/Cars/Car.jsx";
+import BusinessQuery from "./pages/Business/BusinessQuery.jsx";
+import BusinessDelas from "./pages/Business/BusinessDelas.jsx";
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -83,7 +88,7 @@ function App() {
                 <Route path="otp-login" element={<OtpLogin />} />
                 <Route path="agents" element={<Agents />} />
                 <Route path="all-agents" element={<AllAgent />} />
-                <Route path="agent-booking" element={<AgentBooking />} />
+                {/* <Route path="agent-booking" element={<AgentBooking />} /> */}
                 <Route path="all-admins" element={<AllAdmins />} />
                 <Route path="super-admin-dashboard" element={<SuperAdminDashboard />} />
                 <Route path="super-admin-register" element={<SuperAdminRegister />} />
@@ -93,6 +98,13 @@ function App() {
                 <Route path="brokers" element={<Brokers />} />
                 <Route path="flight-deals" element={<FlightDeals />} />
                 <Route path="hotel-deals" element={<HotelDeals />} />
+                <Route path="package" element={<Package />} />
+                <Route path="car" element={<Car />} />
+                <Route path="booking-mails" element={<BookingMails />} />
+
+                <Route path="business-query" element={<BusinessQuery />} />
+                <Route path="business-booking" element={<BusinessDelas />} />
+
               </Routes>
             </PrivateRoute>
           }

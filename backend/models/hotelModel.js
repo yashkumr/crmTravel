@@ -2,16 +2,19 @@ import mongoose from 'mongoose';
 
 const hotelSchema = new mongoose.Schema({
     firstName: {
-        type: String, required: true
+        type: String,
+        required: true
     },
     middleName: {
         type: String
     },
     mobile: {
-        type: String, required: true
+        type: String,
+        required: true
     },
     email: {
-        type: String, required: true
+        type: String,
+        required: true
     },
     dob: {
         type: Date
@@ -41,7 +44,8 @@ const hotelSchema = new mongoose.Schema({
         type: String
     },
     adult: {
-        type: Number, required: true
+        type: Number,
+        required: true
     },
     infant: {
         type: Number
@@ -59,14 +63,22 @@ const hotelSchema = new mongoose.Schema({
     org: {
         type: String
     },
+    webUrl: {
+        type: String,
+    },
+    webMail: {
+        type: String,
+    },
     status: {
         type: String,
-        enum: ["pending", "approved", "rejected"],
-        default: "pending"
+        enum: ["newBooking", "approved", "rejected"],
+        default: "newBooking"
 
     }
 
 
-}, { timestamps: true });
+},
+    { timestamps: true }
+);
 
 export default mongoose.model('Hotels', hotelSchema);

@@ -1,14 +1,18 @@
-import React, {  } from 'react'
+import React, { } from 'react'
 import Layout from '../components/Layout/Layout.jsx'
 import { RxHamburgerMenu } from "react-icons/rx";
 import SideBar from '../components/SideBar.jsx';
+import { useFlightDeals } from '../context/FlightDealsContext.jsx';
+import { useHotelDeals } from '../context/HotelDealsContext.jsx';
 
 const Home = () => {
-  // const [isSidebarVisible, setSidebarVisible] = useState(true);
 
-  // const toggleSidebar = () => {
-  //   setSidebarVisible(!isSidebarVisible);
-  // };
+  const { flightDeals, setFlightDeals, loading, setLoading, errorCode, fetchFlightDeals } = useFlightDeals();
+    const { fetchHotelDeals, hotelDeals, setHotelDeals} = useHotelDeals();
+
+
+  const STATUS_NEW_BOOKING = "newBooking";
+  const STATUS_REJECTED = "rejected";
 
   return (
     <Layout>
@@ -33,7 +37,7 @@ const Home = () => {
                 aria-controls="comparison1"
                 aria-selected="true"
               >
-                Last 15 Days Flight Deals
+                Flight Booking
               </button>
               <button
                 className="nav-link"
@@ -45,7 +49,7 @@ const Home = () => {
                 aria-controls="comparison2"
                 aria-selected="false"
               >
-                Last 15 Days Hotel Deals
+                Hotel Booking
               </button>
               <button
                 className="nav-link"
@@ -57,51 +61,99 @@ const Home = () => {
                 aria-controls="comparison3"
                 aria-selected="false"
               >
-                Last 15 Days closed Deals
+                closed Booking
               </button>
             </div>
             <div className="tab-content" id="comparison-tabs-content">
+
               <div
                 className="tab-pane fade show active"
                 id="comparison1"
                 role="tabpanel"
                 aria-labelledby="comparison1-tab"
               >
-                <div className="mt-3 d-flex gap-3 justify-content-between border p-3 rounded">
+                <div className="mt-3 d-flex gap-3 justify-content-around border p-3 rounded">
                   <div className="mt-3 border p-4 rounded">
-                    <h5>Flights</h5>
-                    <p>100 Flights Deals Generate </p>
+                    <h5>Today Booking</h5>
+                    <p className='text-success'> <strong className='text-dark'>
+                      {flightDeals.filter(
+                        (deal) =>
+                          new Date(deal.createdAt).toISOString().split("T")[0] ===
+                          new Date().toISOString().split("T")[0]
+                      ).lengthl  === 0 ? "No deals generated today": flightDeals.filter(
+                        (deal) =>
+                          new Date(deal.createdAt).toISOString().split("T")[0] ===
+                          new Date().toISOString().split("T")[0]
+                      ).length }
+                    </strong> Flights Booking Generate </p>
                   </div>
                   <div className="mt-3 border p-4 rounded">
-                    <h5>closed Deals</h5>
-                    <p>45 Flights Deals Generate </p>
+                    <h5>New Booking  Booking</h5>
+                    <p className='text-success'> <strong className='text-dark p-1 fw-bold'>
+                      {flightDeals.filter((deal) => deal.status === STATUS_NEW_BOOKING)
+                        .length}
+                    </strong>Flights Booking Generate </p>
+                  </div>
+
+                </div>
+                <div className="mt-3 d-flex gap-3 justify-content-around border p-3 rounded">
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>Total Deals</h5>
+                    <p className='text-success'> <strong className='text-dark'>
+                      {flightDeals.length}
+                    </strong> Flights Deals Generate </p>
                   </div>
                   <div className="mt-3 border p-4 rounded">
-                    <h5>Remaining Deals</h5>
-                    <p>55 Flights Deals Generate </p>
+                    <h5>Rejected Booking</h5>
+                    <p className='text-success'> <strong className='text-dark p-1 fw-bold'>
+                      {flightDeals.filter((deal) => deal.status === STATUS_REJECTED).length}
+                    </strong>Flights Deals Rejected </p>
                   </div>
+
                 </div>
 
               </div>
+
               <div
                 className="tab-pane fade"
                 id="comparison2"
                 role="tabpanel"
                 aria-labelledby="comparison2-tab"
               >
-                <div className="mt-3 d-flex gap-3 justify-content-between border p-3 rounded">
+                 <div className="mt-3 d-flex gap-3 justify-content-around border p-3 rounded">
                   <div className="mt-3 border p-4 rounded">
-                    <h5>Hotels</h5>
-                    <p>100 Hotels Deals Generate </p>
+                    <h5>Today Booking</h5>
+                    <p className='text-success'> <strong className='text-dark'>
+                      {/* {hotelDeals?.filter(
+                        (deal) =>
+                          new Date(deal.createdAt).toISOString().split("T")[0] ===
+                          new Date().toISOString().split("T")[0]
+                      ).length} */}
+                    </strong>  </p>
                   </div>
                   <div className="mt-3 border p-4 rounded">
-                    <h5>closed Deals</h5>
-                    <p>45 Hotels Deals Generate </p>
+                    <h5>New Booking  </h5>
+                    <p className='text-success'> <strong className='text-dark p-1 fw-bold'>
+                      {hotelDeals?.filter((deal) => deal.status === STATUS_NEW_BOOKING)
+                        .length}
+                    </strong>Flights Booking Generate </p>
+                  </div>
+
+                </div>
+                <div className="mt-3 d-flex gap-3 justify-content-around border p-3 rounded">
+                  <div className="mt-3 border p-4 rounded">
+                    <h5>Total Booking</h5>
+                    <p className='text-success'> <strong className='text-dark'>
+                      {hotelDeals?.length}
+                    </strong> Flights Booking Generate </p>
                   </div>
                   <div className="mt-3 border p-4 rounded">
-                    <h5>Remaining Deals</h5>
-                    <p>55 Hotels Deals Generate </p>
+                    <h5>Rejected Booking</h5>
+                    <p className='text-success'> <strong className='text-dark p-1 fw-bold'>
+                      {hotelDeals?.filter((deal) => deal.status === STATUS_REJECTED).length}
+                    </strong>Flights Booking Rejected </p>
                   </div>
+
                 </div>
               </div>
               <div
@@ -110,19 +162,16 @@ const Home = () => {
                 role="tabpanel"
                 aria-labelledby="comparison3-tab"
               >
-                <div className="mt-3 d-flex gap-3 justify-content-between border p-3 rounded">
+                <div className="mt-3 d-flex gap-3 justify-content-around border p-3 rounded">
                   <div className="mt-3 border p-4 rounded">
-                    <h5>Total Deals</h5>
-                    <p>200  Deals Generate </p>
+                    <h5>Total Booking</h5>
+                    <p className='text-success'> <strong>  {hotelDeals?.length + flightDeals.length} </strong>  Deals Generate </p>
                   </div>
                   <div className="mt-3 border p-4 rounded">
-                    <h5>closed Deals</h5>
-                    <p>95  Deals Generate </p>
+                    <h5>closed Booking</h5>
+                    <p className='text-success'><strong> {flightDeals?.filter((deal) => deal.status === "approved").length + hotelDeals?.filter((deal) => deal.status === "approved").length }</strong> Deals Closed</p>
                   </div>
-                  <div className="mt-3 border p-4 rounded">
-                    <h5>Remaining Deals</h5>
-                    <p>105  Deals Generate </p>
-                  </div>
+                 
                 </div>
               </div>
             </div>

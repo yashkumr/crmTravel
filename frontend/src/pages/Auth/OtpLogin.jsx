@@ -31,6 +31,10 @@ const OtpLogin = () => {
             if (res?.data?.success) {
                 toast.success(res.data.message); // Show success message
                 await fetchAdmin(); // Refresh data
+                // if( deals._id ===  id){
+                //     deals.status = status;
+                //   }
+                console.log('OTP status updated:', res.data);
             } else {
                 toast.error(res.data.message || 'Something went wrong!');
             }
@@ -47,7 +51,7 @@ const OtpLogin = () => {
                 {/* Main Content */}
                 <div className="flex-grow-1 p-4">
                     <h2 className="text-start">Admins</h2>
-                    <table className="table">
+                    <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -74,7 +78,7 @@ const OtpLogin = () => {
                                         <td>
                                             {deal?.otp?.value ? (
                                                 <button
-                                                    className="btn btn-primary"
+                                                    className="btn btn-primary btn-sm text-nowrap"
                                                     onClick={() => updateOtpStatus(deal._id, deal.email, deal.otp.value)}
                                                 >
                                                     Send Otp
