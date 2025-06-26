@@ -96,7 +96,12 @@ const flightSchema = new mongoose.Schema(
       enum: ["newBooking", "approved", "rejected"],
       default: "newBooking"
 
-    }
+    },
+    approvedBy: {
+      type: String,
+     
+    },
+    
 
   },
   { timestamps: true }

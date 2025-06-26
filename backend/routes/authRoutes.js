@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllAdminContrller, getAllAgentRequestController, getAllUsersController, getOtpAgentController, loginController, registerController, sendOtpController, updateAgentOptController, updateStatusController} from "../controllers/authController.js";
+import {  getAllAdminContrller, getAllAgentRequestController, getAllUsersController, getOtpAgentController, getOtpAllControlller, loginController, moveToTrashController, registerController, sendOtpController, updateAgentOptController, updateStatusController} from "../controllers/authController.js";
 import { protect, admin, superAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 import User from "../models/User.js";
 import { getAllAgentController } from "../controllers/flightController.js";
@@ -10,10 +10,13 @@ router.post("/login", loginController);
 
 router.post("/send-otp", sendOtpController);
 router.get("/get-otp-agent",getOtpAgentController)
+router.get("/get-otp-all", getOtpAllControlller)
 router.post("/agent-otp-status/:id", updateAgentOptController)
 
 router.get("/get-all-users", getAllUsersController)
 router.patch("/status/:id", updateStatusController);
+
+router.patch("/moveToTrash/:id", moveToTrashController);
 
 // admins
 router.get("/get-all-admins", getAllAdminContrller);

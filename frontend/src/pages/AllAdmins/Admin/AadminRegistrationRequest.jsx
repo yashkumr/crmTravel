@@ -18,7 +18,7 @@ const AadminRegistrationRequest = () => {
         try {
             const res = await axios.get('/api/v1/auth/agent-request');
             setAllAgents(res.data);
-            console.log(res.data);
+            
         } catch (error) {
             setError(error.response.message || 'Something went wrong ');
         }
@@ -27,15 +27,15 @@ const AadminRegistrationRequest = () => {
         }
     }
 
-    const updateStatus = async (id, status) => {
-        console.log(id, status)
+const updateStatus = async (id, status) => {
+    // Get current user from localStorage
+    const data = JSON.parse(localStorage.getItem("auth"));
+    const approvedBy = data?.user?.email;
+    
 
-        const res = await axios.patch(`/api/v1/auth/status/${id}`, { status });
-        console.log("status updated")
-        console.log(res);
-
-        await fetchFlightDeals();
-    };
+    const res = await axios.patch(`/api/v1/auth/status/${id}`, { status, approvedBy });
+    await fetchFlightDeals();
+};
     return (
         <>
             <Layout>
@@ -43,7 +43,7 @@ const AadminRegistrationRequest = () => {
                     <SideBar />
                     {/* Main Content */}
                     <div className="flex-grow-1 p-4" >
-                        <h2 className='text-start'>All Registered  Agents</h2>
+                        <h2 className='text-start'>All Registered Agents</h2>
                         <table className="table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -53,6 +53,7 @@ const AadminRegistrationRequest = () => {
                                     <th scope="col">Number</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Status</th>
+                                    <th scope='col'>Approved/Reject By</th>
 
 
                                 </tr>
@@ -98,6 +99,8 @@ const AadminRegistrationRequest = () => {
                                                             }</success>
                                                         )}
                                                     </td>
+
+                                                    <td> {deal?.approvedBy} </td>
 
                                                 </tr>
 

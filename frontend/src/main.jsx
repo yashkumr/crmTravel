@@ -15,7 +15,7 @@ import { HotelDealsProvider } from './context/HotelDealsContext.jsx'
 createRoot(document.getElementById('root')).render(
 
 
-
+ 
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <AuthProvider>

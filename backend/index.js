@@ -16,6 +16,7 @@ import flightRoutes from './routes/flightRoutes.js';
 import hotelRoutes from './routes/hotelRoutes.js';
 import packageRoutes from './routes/packageRoutes.js';
 import businessRoutes from './routes/businessRoutes.js';
+import ctmFlightRoutes from './routes/ctmFlightRoutes.js';
 import mongoose from 'mongoose';
 import setupRealTime from './services/realTime.js';
 
@@ -59,6 +60,7 @@ if (cluster.isPrimary) {
     app.use('/api/v1/hotels', hotelRoutes);
     app.use("/api/v1/package", packageRoutes);
     app.use("/api/v1/business", businessRoutes);
+    app.use("/api/v1/ctmFlights", ctmFlightRoutes);
 
     // Socket.io Event Handling
     io.on('connection', (socket) => {
@@ -73,7 +75,7 @@ if (cluster.isPrimary) {
 
     setupRealTime(io);
 
-    const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT || 8080;
 
     // Global Error Handlers
     process.on('uncaughtException', (err) => {

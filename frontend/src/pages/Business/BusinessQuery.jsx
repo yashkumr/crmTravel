@@ -30,7 +30,7 @@ const SearchFlightData = () => {
     return (
         <Layout>
             <div className="d-flex">
-                <SideBar />
+                <SideBar flightData={flightData}/>
                 <div className="flex-grow-1 p-4">
                   
                     <div className="d-flex justify-content-between align-items-center mb-3">

@@ -11,7 +11,7 @@ const SuperAdminRegister = () => {
     userName: "",
     email: "",
     password: "",
-    role: "user"
+    role: "superadmin"
   });
 
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const SuperAdminRegister = () => {
       console.log(res.data);
 
       toast.success(res.data.message);
-      navigate("/login");
+      navigate("/zts-login");
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -115,7 +115,7 @@ const SuperAdminRegister = () => {
 
                     <option value="admin">Admin</option>
                     <option value="user">User</option>
-                    <option value="superadmin">Superadmin</option>
+                    <option value="superadmin" >Superadmin</option>
                     <option value="agent">Agent</option>
                   </select>
                 </div>

@@ -32,7 +32,7 @@ const Register = () => {
       console.log(res.data);
 
       toast.success(res.data.message);
-      navigate("/login");
+      navigate("/zts-login");
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -82,6 +82,7 @@ const Register = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className="form-control "
+                  required
                 />
               </div>
 
@@ -95,6 +96,7 @@ const Register = () => {
                   value={formData.password}
                   onChange={handleChange}
                   className="form-control shadow-none"
+                  required
                 />
               </div>
               <div className="col-12">
@@ -107,10 +109,11 @@ const Register = () => {
                   onChange={handleChange}
                   className="form-select shadow-none"
                   id="inputRole"
+                  required
                 >
                   <option value="agent">Agent</option>
                   <option value="admin">Admin</option>
-                  <option value="superadmin">Superadmin</option>
+                  {/* <option value="superadmin">Superadmin</option> */}
                   <option value="user">User</option>
                 </select>
               </div>

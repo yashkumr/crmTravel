@@ -38,6 +38,14 @@ import BusinessQuery from "./pages/Business/BusinessQuery.jsx";
 import BusinessDelas from "./pages/Business/BusinessDelas.jsx";
 import TravelowaysBooking from "./pages/Traveloways/TravelowaysBooking.jsx";
 import FaresWayBooking from "./pages/FaresWay/FaresWayBooking.jsx";
+import OtpsprAdLogin from "./pages/Auth/OtpsprAdLogin.jsx";
+import CreateCtmFlight from "./pages/CustomDeals/CreateCtmFlight.jsx";
+import GeneratePnrFlight from "./pages/CustomDeals/GeneratePnrFlight.jsx";
+import DetailsPnrFlight from "./pages/CustomDeals/DetailsPnrFlight.jsx";
+import ReducePrice from "./pages/AllAdmins/SuperAdmin/ReducePrice.jsx";
+import SrcDest from "./pages/AllAdmins/SuperAdmin/SrcDest.jsx";
+import SrcDestDetails from "./pages/AllAdmins/SuperAdmin/SrcDestDetails.jsx";
+import ReduceSrcDest from "./pages/AllAdmins/SuperAdmin/ReduceSrcDest.jsx";
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -88,6 +96,7 @@ function App() {
                   }
                 />
                 <Route path="otp-login" element={<OtpLogin />} />
+                <Route path="otp-login-superadmin" element={<OtpsprAdLogin />} />
                 <Route path="agents" element={<Agents />} />
                 <Route path="all-agents" element={<AllAgent />} />
                 {/* <Route path="agent-booking" element={<AgentBooking />} /> */}
@@ -109,6 +118,15 @@ function App() {
                 <Route path="traveloways-booking" element={<TravelowaysBooking />} />
                 <Route path="faresway-booking" element={<FaresWayBooking />} />
 
+                <Route path="create-flight-booking" element={<CreateCtmFlight />} />
+                <Route path="flight-pnr" element={<GeneratePnrFlight />} />
+                <Route path="details-pnr-flight/:id" element={<DetailsPnrFlight />} />
+                <Route path="reduce-price-superadmin" element={<ReducePrice />} />
+                <Route path="src-dest" element={<SrcDest />} />
+                <Route path="src-dest-details/:id" element={<SrcDestDetails />} />
+                <Route path="reduce-src-dest-details/:id" element={<ReduceSrcDest />} />
+
+                
               </Routes>
             </PrivateRoute>
           }

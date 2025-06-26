@@ -22,6 +22,7 @@ const FlightDeals = () => {
   const [bookingId, setBookingId] = useState("");
   const [showNotifications, setShowNotifications] = useState(false);
   const itemsPerPage = 5;
+  
 
   const STATUS_NEW_BOOKING = "newBooking";
   const STATUS_REJECTED = "rejected";
@@ -273,6 +274,7 @@ const FlightDeals = () => {
                 <th>Email</th>
                 <th>Action</th>
                 <th>Status</th>
+                <th>approve/reject/refresh by</th>
               </tr>
             </thead>
             <tbody>
@@ -306,6 +308,8 @@ const FlightDeals = () => {
                         {deal.status}
                       </span>
                     </td>
+                    <td> {deal.approvedBy || "-"}</td>
+                    
                   </tr>
                 ))
               ) : (
